@@ -21,6 +21,7 @@ addForm.addEventListener('submit', e =>
     }
     }
 )
+//for deleting a todo with click of the icon
    list.addEventListener('click',(e)=>
 {
     e.preventDefault();// e is the object of event listener that contains all the info of the event
@@ -29,3 +30,33 @@ addForm.addEventListener('submit', e =>
             e.target.parentElement.remove();//.parentElement takes the li element as parent and .remove() method deletes it from the list 
         }
 });
+
+// for searching something from the above search bar
+const filterTodos = (todo) =>
+    {
+        Array.from(list.children)
+        .filter((todo)=>
+        {
+            return !todo.textContent.includes(term);
+        })
+        .forEach((todo)=>
+        {
+            todo.classList.add('filtered');
+        })
+        Array.from(list.children)
+        .filter((todo)=>
+        {
+            return todo.textContent.includes(term);
+        })
+        .forEach((todo)=>
+        {
+            todo.classList.remove('filtered');
+        })
+    };
+search.addEventListener('keyup', e =>
+    {
+        e.preventDefault();
+        const term = search.value.trim();
+        filterTodos(term);
+    }
+);
